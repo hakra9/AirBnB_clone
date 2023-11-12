@@ -20,6 +20,7 @@ def simple_parse(arg):
         retl = [i.strip(",") for i in lexer]
         retl.append(curly_braces.group())
         return retl
+
 class HBNBCommand(cmd.Cmd):
     """Defines the HolbertonBnB command interpreter.
     Attributes:
@@ -112,42 +113,5 @@ class HBNBCommand(cmd.Cmd):
                 elif len(argl) == 0:
                     objl.append(obj.__str__())
             print(objl)
-
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-=======
-#!/usr/bin/python3
-"""console"""
-import cmd
-
-
-class HBNBCommand(cmd.Cmd):
-    """interactive cmd class"""
-
-    prompt = "(hbnb) "
-
-    def do_quit(self, arg):
-        """Quit the cmd"""
-        return True
-
-    def do_EOF(self, arg):
-        """Exits the cmd"""
-        print("")
-        return True
-
-    def emptyline(self):
-        """an empty line + ENTER shouldn’t execute anything"""
-        pass
-
-    def help_quit(self):
-        """"help message"""
-        print("Quit command to exit the program\n")
-
-    def help_EOF(self):
-        """help message"""
-        print("EOF command to exit the program\n")
-
-
-if __name__ == '__main__':
-    HBNBCommand().cmdloop()
->>>>>>> 090a018f73dcabe798a81fbd78f17c379151c8a1
