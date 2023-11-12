@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 """
 Defines tests for the basemodel classs the parent class for
 the AiBnB project
@@ -30,8 +29,8 @@ class TestBaseModel_instantiation(unittest.TestCase):
 
     def test_kwrags(self):
         date = datetime.now()
-        date = date.isoformat()
-        obj = BaseModel(id="1234567", created_at=date, updated_at=date)
+        dt = date.isoformat()
+        obj = BaseModel(id="1234567", created_at=dt, updated_at=dt)
         self.assertEqual(obj.id, "1234567")
         self.assertEqual(obj.updated_at, date)
         self.assertEqual(obj.created_at, date)
@@ -43,13 +42,16 @@ class TestBaseModel_instantiation(unittest.TestCase):
         self.assertGreater(obj2.created_at, obj1.created_at)
 
     def test_str_format(self):
-        dt = datetime.now().isoformat()
-        obj = BaseModel(id="123", created_at=dt, updated_at=dt)
-        str_format = obj.__str__()
-        self.assertIn("[BaseModel] (123)", str_format)
-        self.assertIn("'id': '123'", str_format)
-        self.assertIn("'created_at: '" + dt, str_format)
-        self.assertIn("'updated_at: '" + dt, str_format)
+        dt = datetime.today()
+        dt_repr = repr(dt)
+        bm = BaseModel()
+        bm.id = "123456"
+        bm.created_at = bm.updated_at = dt
+        bmstr = bm.__str__()
+        self.assertIn("[BaseModel] (123456)", bmstr)
+        self.assertIn("'id': '123456'", bmstr)
+        self.assertIn("'created_at': " + dt_repr, bmstr)
+        self.assertIn("'updated_at': " + dt_repr, bmstr)
 
     def test_instantiation_with_None_kwargs(self):
         with self.assertRaises(TypeError):
@@ -109,8 +111,8 @@ class TestBaseModel_to_dict(unittest.TestCase):
         self.assertEqual(dict, type(self.dic))
 
     def test_date_type(self):
-        self.assertEqual(str, self.dic["created_at"])
-        self.assertEqual(str, self.dic["updated_at"])
+        self.assertEqual(str, type(self.dic["created_at"]))
+        self.assertEqual(str, type(self.dic["updated_at"]))
 
     def test_dict_keys(self):
         self.assertIn("id", self.dic)
@@ -121,8 +123,9 @@ class TestBaseModel_to_dict(unittest.TestCase):
     def test_dict_values(self):
         self.obj.name = "Amr"
         self.obj.number = 142
-        self.assertEqual(self.dic["name"], "Amr")
-        self.assertEqual(self.dic["number"], 142)
+        dic = self.obj.to_dict()
+        self.assertEqual(dic["name"], "Amr")
+        self.assertEqual(dic["number"], 142)
 
     def test_contrast_to_dict(self):
         self.assertNotEqual(self.obj.__dict__, self.dic)
