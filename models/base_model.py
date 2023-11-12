@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Module"""
 from uuid import uuid4
 from datetime import datetime
 import models
