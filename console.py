@@ -14,8 +14,21 @@ from models.review import Review
 
 
 def parse(arg):
-    matches = re.findall(r'[{[]([^}\]]+)[}\]]', arg)
-    return [match.strip(",") for match in matches]
+    curly_braces = re.search(r"\{(.*?)\}", arg)
+    brackets = re.search(r"\[(.*?)\]", arg)
+
+    if curly_braces is None and brackets is None:
+        return [i.strip(",") for i in arg.split(",")]
+    elif brackets is None:
+        return parse_helper(arg, curly_braces)
+    else:
+        return parse_helper(arg, brackets)
+
+def parse_helper(arg, match):
+    lexer = arg[:match.span()[0]].split(",")
+    retl = [i.strip(",") for i in lexer]
+    retl.append(match.group())
+    return retl
 
 class HBNBCommand(cmd.Cmd):
     """Defines the  command interpreter.
