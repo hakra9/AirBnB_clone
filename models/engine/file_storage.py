@@ -1,45 +1,38 @@
 #!/user/bin/python3
-'''AirBnB clone project File Storage'''
+"""
+Filestorage class that is responsible for serializing and deserializing 
+the jsonfiles 
+
+"""
+
 import json
 from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
-from models.place import Place
-from models.amenity import Amenity
-from models.review import Review
 
 
-class FileStorage:
-    """ This is a storage engine for AirBnB clone project
-    Class Methods:
-        all: Returns the object
-        new: updates the dictionary id
-        save: Serializes, or converts Python objects into JSON strings
-        reload: Deserializes, or converts JSON strings into Python objects.
-    Class Attributes:
-        __file_path (str): The name of the file to save objects to.
-        __objects (dict): A dictionary of instantiated objects.
-        class_dict (dict): A dictionary of all the classes.
-    """
+class FileStorage():
+
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """Return the dictionary __objects."""
-        return FileStorage.__objects
+        """returns the objects dictionary"""
+        return (self.__objects)
 
     def new(self, obj):
-        """Set in __objects obj with key <obj_class_name>.id"""
-        name = obj.__class__.__name__
-        FileStorage.__objects["{}.{}".format(name, obj.id)] = obj
+        """adds new objects to the objects dictionar"""
+        if obj:
+            self.__objects["{}.{}".format(
+                obj.__class__.__name__, obj.id)] = obj
 
     def save(self):
-        """serializes __objects to the JSON file """
-        odict = FileStorage.__objects
-        objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
-        with open(FileStorage.__file_path, "w") as f:
-            json.dump(objdict, f)
+        """save the objects to a json file"""
+        obj_dict = {}
+
+        for key, value in self.__objects.items():
+            obj_dict[key] = value.to_dict()
+        with open(self.__file_path, 'w') as file:
+            json.dump(obj_dict, file)
+
     def reload(self):
         """reads the objects dictionary in json file then turns it to objects"""
         try:
@@ -48,6 +41,7 @@ class FileStorage:
             for key, value in obj_dict.items():
                 obj = BaseModel(**value)
                 self.__objects[key] = obj
+
         except FileNotFoundError:
             pass
 
