@@ -27,7 +27,6 @@ class FileStorage():
     def save(self):
         """save the objects to a json file"""
         obj_dict = {}
-
         for key, value in self.__objects.items():
             obj_dict[key] = value.to_dict()
         with open(self.__file_path, 'w') as file:
@@ -41,7 +40,6 @@ class FileStorage():
             for key, value in obj_dict.items():
                 obj = BaseModel(**value)
                 self.__objects[key] = obj
-
         except FileNotFoundError:
             pass
 
