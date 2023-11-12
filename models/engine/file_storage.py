@@ -28,4 +28,14 @@ class FileStorage:
         objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
         with open(FileStorage.__file_path, "w") as f:
             json.dump(objdict, f)
+    def reload(self):
+        """reads the objects dictionary in json file then turns it to objects"""
+        try:
+            with open(self.__file_path, 'r') as file:
+                obj_dict = json.load(file)
+            for key, value in obj_dict.items():
+                obj = BaseModel(**value)
+                self.__objects[key] = obj
+        except FileNotFoundError:
+            pass
 
