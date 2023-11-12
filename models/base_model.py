@@ -4,6 +4,7 @@ from uuid import uuid4
 from datetime import datetime
 import models
 
+
 class BaseModel:
     "class basemodel"
     def __init__(self, *args, **kwargs):
@@ -24,11 +25,11 @@ class BaseModel:
                     self.__dict__[k] = v
         else:
             models.storage.new(self)
-   
+
     def __str__(self):
         """return signification of the class,user,dic"""
         class_name = self.__class__.__name__
-        return "[{}] ({}) <{}>".format (class_name , self.id, self.__dict__)
+        return "[{}] ({}) <{}>".format(class_name, self.id, self.__dict__)
 
     def save(self):
         """update the public instance attribute withe the current dattime"""
