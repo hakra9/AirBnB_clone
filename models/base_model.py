@@ -6,7 +6,7 @@ import models
 
 class BaseModel:
     "class basemodel"
-    def __init__(self *args ,**kwargs):
+    def __init__(self, *args, **kwargs):
         """new basemodel.
         Args:
             *args:multi argument not used
@@ -27,8 +27,8 @@ class BaseModel:
    
     def __str__(self):
         """return signification of the class,user,dic"""
-        classe_name = self.__class__.__name__
-        return "[] () <>".format (class_name , self.id, self.__dict__)
+        class_name = self.__class__.__name__
+        return "[{}] ({}) <{}>".format (class_name , self.id, self.__dict__)
 
     def save(self):
         """update the public instance attribute withe the current dattime"""
