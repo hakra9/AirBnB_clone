@@ -4,21 +4,37 @@ import cmd
 
 
 class HBNBCommand(cmd.Cmd):
-    """interactive cmd class"""
-
-    prompt = "(hbnb) "
+    """cmd class"""
+    prompt = '(hbnb) '
 
     def do_quit(self, arg):
         """Quit command to exit the program."""
+        print("Exiting the program.")
         return True
+
+    def help_quit(self):
+        """Help for the quit command.
+        
+        Usage: quit
+        
+        This command exits the program.
+        """
+        print("Type 'quit' to exit the program.")
 
     def do_EOF(self, arg):
-        """EOF signal to exit the program."""
-        print("")
+        """Exit the program on EOF (Ctrl-D)."""
+        print("\nExiting the program.")
         return True
 
+    def help_EOF(self):
+        """Help for EOF.
+        
+        This command exits the program when Ctrl-D is pressed.
+        """
+        print("Press Ctrl-D to exit the program.")
+
     def emptyline(self):
-        """an empty line + ENTER shouldn’t execute anything"""
+        """Do nothing on empty line."""
         pass
 
 if __name__ == '__main__':
