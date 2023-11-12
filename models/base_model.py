@@ -23,14 +23,11 @@ class BaseModel:
                 if "created_at" == key:
                     self.created_at = datetime.strptime(kwargs["craeted_at"],
                                                         '%Y-%m-%dT%H:%M:%S.%f')
-
                 elif "updated_at" == key:
                     self.updated_at = datetime.strptime(kwargs["updated_at"],
                                                         '%Y-%m-%dT%H:%M:%S.%f')
-
                 elif "__class__":
                     pass
-
                 else:
                     setattr(self, key, value)
 
