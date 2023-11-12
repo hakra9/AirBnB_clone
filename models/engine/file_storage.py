@@ -1,7 +1,7 @@
-#!/user/bin/python3 
+#!/user/bin/python3
 """
-Filestorage class that is responsible for serializing and deserializing 
-the jsonfiles 
+Filestorage class that is responsible for serializing and deserializing
+the jsonfiles
 
 """
 
@@ -33,7 +33,8 @@ class FileStorage():
             json.dump(obj_dict, file)
 
     def reload(self):
-        """reads the objects dictionary in json file then turns it to objects"""
+        """reads the objects dictionary in json
+        file then turns it to objects"""
         try:
             with open(self.__file_path, 'r') as file:
                 obj_dict = json.load(file)
@@ -42,4 +43,3 @@ class FileStorage():
                 self.__objects[key] = obj
         except FileNotFoundError:
             pass
-
